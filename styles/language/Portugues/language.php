@@ -10,8 +10,8 @@
  *  Lingaguem: Português-BR
  *  Por: www.craftalizar.com
  *  Tradutor: Douglas Teles
- *  Versão: 0.1.1
- *  Última revisão: 07/05/2016
+ *  Versão: 0.1.2
+ *  Última revisão: 08/05/2016
  */
  
 /*
