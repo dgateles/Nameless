@@ -219,13 +219,13 @@ $admin_language = array(
 	'group_modcp' => 'Esse grupo pode acessar o ModCP?',
 	'group_admincp' => 'Esse grupo pode acessar o AdminCP?',
 	'group_name_required' => 'Você precisa informar um nome para o grupo.',
-	'group_name_minimum' => 'The group name must be a minimum of 2 characters.',
-	'group_name_maximum' => 'The group name must be a maximum of 20 characters.',
-	'html_maximum' => 'The group HTML must be a maximum of 1024 characters.',
-	'select_user_group' => 'The user must be in a group.',
-	'uuid_max_32' => 'The UUID must be a maximum of 32 characters.',
-	'cant_delete_root_user' => 'Can\'t delete the root user!',
-	'cant_modify_root_user' => 'Can\'t modify the root user\'s group.',
+	'group_name_minimum' => 'O nome do grupo deve ter um mínimo de 2 caracteres.',
+	'group_name_maximum' => 'O nome do grupo deve ter um máximo de 2 caracteres.',
+	'html_maximum' => 'O grupo HTML deve ter no máximo de 1024 caracteres.',
+	'select_user_group' => 'O usuário deve estar em um grupo.',
+	'uuid_max_32' => 'O UUID deve ter um máximo de 32 caracteres.',
+	'cant_delete_root_user' => 'O usuário root não pode ser excluído!',
+	'cant_modify_root_user' => 'O grupo root não pode ser modificado.',
 	
 	// Admin Minecraft page
 	'minecraft_settings' => 'Configurações Minecraft',
@@ -420,7 +420,7 @@ $user_language = array(
 	
 	// Messaging
 	'new_message' => 'Nova Mensagem',
-	'no_messages' => 'Nenhum mensagem',
+	'no_messages' => 'Nenhuma mensagem',
 	'and_x_more' => 'e mais {x}', // Don't replace "{x}"
 	'system' => 'Sistema',
 	'message_title' => 'Título da Mensagem',
