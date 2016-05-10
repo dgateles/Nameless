@@ -7,11 +7,11 @@
  */
 
 /*
- *  Lingaguem: Português-BR
+ *  Linguagem: Português-BR
  *  Por: www.craftalizar.com
  *  Tradutor: Douglas Teles
- *  Versão: 0.1.2
- *  Última revisão: 08/05/2016
+ *  Versão: 0.1.5
+ *  Última revisão: 10/05/2016
  */
  
 /*
@@ -40,10 +40,10 @@ $admin_language = array(
 	'forums' => 'Fóruns',
 	'users_and_groups' => 'Usuários e Grupos',
 	'minecraft' => 'Minecraft',
-	'style' => 'Estilo',
+	'style' => 'Estilos',
 	'addons' => 'Addons',
 	'update' => 'Atualização',
-	'misc' => 'Misc',
+	'misc' => 'Outras Configurações',
 	
 	// Admin index page
 	'statistics' => 'Estatísticas',
@@ -61,11 +61,11 @@ $admin_language = array(
 	'email' => 'Email',
 	'incoming_email' => 'Email para recebimentos',
 	'outgoing_email' => 'Email para envios',
-	'outgoing_email_help' => 'Somente requirido se a função PHP Mail estiver ativa.',
+	'outgoing_email_help' => 'Somente requerido se a função PHP Mail estiver ativa.',
 	'use_php_mail' => 'Usar função PHP mail()?',
 	'use_php_mail_help' => 'Recomendado: ativado. Se o seu site não estiver enviando emails, desative isso e edite o core/email.php com suas configurações de email.',
 	'use_gmail' => 'Utilizar Gmail para envios?',
-	'use_gmail_help' => 'Somente requirido se a função PHP Mail estiver desativa. Se você optar por não usar o Gmail, SMTP será usado. De qualquer maneira você precisará editar o core/email.php.',
+	'use_gmail_help' => 'Somente requerido se a função PHP Mail estiver desativa. Se você optar por não usar o Gmail, SMTP será usado. De qualquer maneira você precisará editar o core/email.php.',
 	'enable_mail_verification' => 'Ativar a verificação da conta de e-mail?',
 	'enable_email_verification_help' => 'Ativando esse recurso, novos usuários precisarão verificar via e-mail para completarem seus cadastrados.',
 	'pages' => 'Páginas',
@@ -95,18 +95,18 @@ $admin_language = array(
 	'only_works_with_teamspeak' => 'Este módulo atualmente funciona com TeamSpeak e Discord',
 	'discord_id' => 'ID do Servidor Discord',
 	'voice_server_help' => 'Entre com os detalhes do usuário ServerQuery',
-	'ip_without_port' => 'IP (não inclúa a porta)',
+	'ip_without_port' => 'IP (não inclua a porta)',
 	'voice_server_port' => 'Porta (normalmente 10011)',
 	'virtual_port' => 'Porta Virtual (normalmente 9987)',
 	'permissions' => 'Permissões:',
 	'view_applications' => 'Ver Aplicações?',
-	'accept_reject_applications' => 'Aceitar/Regeitar aplicações?',
+	'accept_reject_applications' => 'Aceitar/Rejeitar aplicações?',
 	'questions' => 'Perguntas:',
 	'question' => 'Pergunta',
 	'type' => 'Tipo',
 	'options' => 'Opções',
 	'options_help' => 'Cada opção em uma nova linha; podem ser deixados vazios (dropdowns apenas)',
-	'no_questions' => 'Nenhum pergunta adicionada ainda.',
+	'no_questions' => 'Nenhuma pergunta adicionada ainda.',
 	'new_question' => 'Nova Pergunta',
 	'editing_question' => 'Editando Pergunta',
 	'delete_question' => 'Apagar Pergunta',
@@ -131,8 +131,8 @@ $admin_language = array(
 	'unable_to_create_page' => 'Não foi possível criar a página.',
 	'unable_to_edit_page' => 'Não foi possível editar a página.',
 	'create_page_error' => 'Certifique-se de que você digitou uma URL contendo entre 1 e 20 caracteres, um título de página contendo entre 1 e 30 caracteres e conteúdo da página contendo entre 5 e 20480 caracteres.',
-	'delete_page' => 'Excluír Página',
-	'confirm_delete_page' => 'Você tem certeza de que deseja excluír essa página?',
+	'delete_page' => 'Excluir Página',
+	'confirm_delete_page' => 'Você tem certeza de que deseja excluir essa página?',
 	'page_deleted_successfully' => 'Página excluída com sucesso',
 	'page_link_location' => 'O link da página será exibido em:',
 	'page_link_navbar' => 'Barra de Navegação',
@@ -143,7 +143,7 @@ $admin_language = array(
 	// Admin forum page
 	'labels' => 'Rótulos de tópico',
 	'new_label' => 'Novo rótulo',
-	'no_labels_defined' => 'Nenhum rótudo definido',
+	'no_labels_defined' => 'Nenhum rótulo definido',
 	'label_name' => 'Nome do Rótulo',
 	'label_type' => 'Tipo do Rótulo',
 	'label_forums' => 'Utilizar Rótulo nos Fóruns:',
@@ -151,7 +151,7 @@ $admin_language = array(
 	'confirm_label_deletion' => 'Tem certeza que deseja excluir este rótulo?',
 	'editing_label' => 'Edição de rótulo',
 	'label_creation_success' => 'Rótulo criado com sucesso',
-	'label_edit_success' => 'Rótudo editado com sucesso',
+	'label_edit_success' => 'Rótulo editado com sucesso',
 	'label_default' => 'Padrão',
 	'label_primary' => 'Primário',
 	'label_success' => 'Sucesso',
@@ -165,9 +165,9 @@ $admin_language = array(
 	'create_forum' => 'Criar Fórum',
 	'forum_name' => 'Nome do Fórum',
 	'forum_description' => 'Descrição do Fórum',
-	'delete_forum' => 'Excluír Fórum',
+	'delete_forum' => 'Excluir Fórum',
 	'move_topics_and_posts_to' => 'Mover tópicos e postagens para',
-	'delete_topics_and_posts' => 'Excluír tópicos e postagens',
+	'delete_topics_and_posts' => 'Excluir tópicos e postagens',
 	'parent_forum' => 'Fórum Vinculado',
 	'has_no_parent' => 'Não possui vínculo',
 	'forum_permissions' => 'Permissões do Fórum',
@@ -193,13 +193,13 @@ $admin_language = array(
 	'update_mc_name' => 'Atualizar Nome Minecraft',
 	'reset_password' => 'Redefinir senha',
 	'punish_user' => 'Punir Usuário',
-	'delete_user' => 'Exluír Usuário',
+	'delete_user' => 'Exluir Usuário',
 	'minecraft_uuid' => 'Minecraft UUID',
 	'ip_address' => 'Endereço IP',
 	'ip' => 'IP:',
 	'other_actions' => 'Outras Ações:',
 	'disable_avatar' => 'Desativar avatar',
-	'confirm_user_deletion' => 'Você tem certeza de que deseja excluír o usuário {x}?', // Don't replace "{x}"
+	'confirm_user_deletion' => 'Você tem certeza de que deseja excluir o usuário {x}?', // Don't replace "{x}"
 	'groups' => 'Grupos',
 	'group' => 'Grupo',
 	'new_group' => 'Novo Grupo',
@@ -213,8 +213,8 @@ $admin_language = array(
 	'donor_group_id_help' => '<p>Esse é o ID do grupo de pacotes do Buycraft, MinecraftMarket ou MCStock.</p><p>Pode ser deixado em branco.</p>',
 	'donor_group_instructions' => 	'<p>Os grupos de doadores precisem ser criados na ordem de <strong>valor mais baixo para o mais alto valor</strong>.</p>
 									<p>Por exemplo, um pacote de R$10 será criado antes de um pacote de R$20.</p>',
-	'delete_group' => 'Excluír Grupo',
-	'confirm_group_deletion' => 'Você tem certeza de que deseja excluír o grupo {x}?', // Don't replace "{x}"
+	'delete_group' => 'Excluir Grupo',
+	'confirm_group_deletion' => 'Você tem certeza de que deseja excluir o grupo {x}?', // Don't replace "{x}"
 	'group_staff' => 'Esse grupo é um grupo da Staff?',
 	'group_modcp' => 'Esse grupo pode acessar o ModCP?',
 	'group_admincp' => 'Esse grupo pode acessar o AdminCP?',
@@ -263,13 +263,13 @@ $admin_language = array(
 	'port' => 'Porta:',
 	'viewing_error' => 'Visualizando Erro',
 	'confirm_error_deletion' => 'Você tem certeza que deseja excluir esse erro?',
-	'display_server_status' => 'Exibir módulo de estatus do servidor?',
+	'display_server_status' => 'Exibir módulo de status do servidor?',
 	'server_name_required' => 'Você precisa inserir um nome para o servidor.',
 	'server_ip_required' => 'Você precisa inserir o IP do servidor.',
-	'server_name_minimum' => 'O nome do servidor precisa ter no minimo 2 caracteres',
-	'server_ip_minimum' => 'O IP do servidor precisa ter no minimo 2 caracteres',
-	'server_name_maximum' => 'O nome do servidor precisa ter no maximo 20 caracteres',
-	'server_ip_maximum' => 'O IP do servidor precisa ter no maximo 64 caracteres',
+	'server_name_minimum' => 'O nome do servidor precisa ter no mínimo 2 caracteres',
+	'server_ip_minimum' => 'O IP do servidor precisa ter no mínimo 2 caracteres',
+	'server_name_maximum' => 'O nome do servidor precisa ter no máximo 20 caracteres',
+	'server_ip_maximum' => 'O IP do servidor precisa ter no máximo 64 caracteres',
 	'purge_errors' => 'Eliminar Erros',
 	'confirm_purge_errors' => 'Você tem certeza de que deseja eliminar todos os erros de query?',
 	
@@ -288,25 +288,25 @@ $admin_language = array(
 	'active' => 'Ativo',
 	'activate' => 'Ativar',
 	'deactivate' => 'Desativar',
-	'theme_install_instructions' => 'Please upload themes to the <strong>styles/themes</strong> directory. Then, click the "scan" button below.',
-	'template_install_instructions' => 'Please upload templates to the <strong>styles/templates</strong> directory. Then, click the "scan" button below.',
-	'addon_install_instructions' => 'Please upload addons to the <strong>addons</strong> directory. Then, click the "scan" button below.',
-	'addon_install_warning' => 'Addons are installed at your own risk. Please back up your files and the database before proceeding',
+	'theme_install_instructions' => 'Por favor, faça upload de temas para o diretório <strong>styles/themes</strong>. Após, clique no botão "scan" abaixo.',
+	'template_install_instructions' => 'Por favor, faça upload de templates para o diretório <strong>styles/templates</strong>. Após, clique no botão "scan" abaixo.',
+	'addon_install_instructions' => 'Por favor, faça upload de addons para o diretório <strong>addons</strong>. Após, clique no botão "scan" abaixo.',
+	'addon_install_warning' => 'Addons são instalados por sua conta e risco. Por favor, faça o backup de seus arquivos/database antes de continuar.',
 	'scan' => 'Scan',
-	'theme_not_exist' => 'That theme doesn\'t exist!',
-	'template_not_exist' => 'That template doesn\'t exist!',
-	'addon_not_exist' => 'That addon doesn\'t exist!',
-	'style_scan_complete' => 'Completed, any new styles have been installed.',
-	'addon_scan_complete' => 'Completed, any new addons have been installed.',
-	'theme_enabled' => 'Theme enabled.',
-	'template_enabled' => 'Template enabled.',
-	'addon_enabled' => 'Addon enabled.',
-	'theme_deleted' => 'Theme deleted.',
-	'template_deleted' => 'Template deleted.',
-	'addon_disabled' => 'Addon disabled.',
-	'inverse_navbar' => 'Inverse Navbar',
-	'confirm_theme_deletion' => 'Are you sure you wish to delete the theme <strong>{x}</strong>?<br /><br />The theme will be deleted from your <strong>styles/themes</strong> directory.', // Don't replace {x}
-	'confirm_template_deletion' => 'Are you sure you wish to delete the template <strong>{x}</strong>?<br /><br />The template will be deleted from your <strong>styles/templates</strong> directory.', // Don't replace {x}
+	'theme_not_exist' => 'Esse tema não existe!',
+	'template_not_exist' => 'Esse template não existe!',
+	'addon_not_exist' => 'Esse addon não existe!',
+	'style_scan_complete' => 'Concluído, quaisquer novos estilos foram instalados.',
+	'addon_scan_complete' => 'Concluído, quaisquer novos addons foram instalados.',
+	'theme_enabled' => 'Tema ativado.',
+	'template_enabled' => 'Template ativado.',
+	'addon_enabled' => 'Addon ativado.',
+	'theme_deleted' => 'Tema excluído.',
+	'template_deleted' => 'Template excluído.',
+	'addon_disabled' => 'Addon desativado.',
+	'inverse_navbar' => 'Barra de navegação inversa',
+	'confirm_theme_deletion' => 'Tem certeza de que deseja excluir o tema <strong>{x}</strong>?<br /><br />O tema será apagado do seu diretório <strong>styles/themes</strong>.', // Don't replace {x}
+	'confirm_template_deletion' => 'Tem certeza de que deseja excluir o template <strong>{x}</strong>?<br /><br />O template será apagado do seu diretório <strong>styles/templates</strong>.', // Don't replace {x}
 	
 	// Admin Misc page
 	'other_settings' => 'Outras Configurações',
@@ -379,32 +379,32 @@ $user_language = array(
 	'account_banned' => 'Sua conta está banida.',
 	'successfully_logged_out' => 'Você se deslogou com sucesso. Até mais!',
 	'signature' => 'Assinatura',
-	'registration_check_email' => 'Please check your emails for a validation link. You won\'t be able to log in until this is clicked.',
-	'unknown_login_error' => 'Sorry, there was an unknown error whilst logging you in. Please try again later.',
-	'validation_complete' => 'Thanks for registering! You can now log in.',
-	'validation_error' => 'Error processing your request. Please try clicking the link again.',
-	'registration_error' => 'Please ensure you have filled out all fields, and that your username is between 3 and 20 characters long and your password is between 6 and 30 characters long.',
-	'username_required' => 'Please enter a username.',
-	'password_required' => 'Please enter a password.',
-	'email_required' => 'Please enter an email address.',
-	'mcname_required' => 'Please enter a Minecraft username.',
-	'accept_terms' => 'You must accept the terms and conditions before registering.',
-	'invalid_recaptcha' => 'Invalid reCAPTCHA response.',
-	'username_minimum_3' => 'Your username must be a minimum of 3 characters long.',
-	'username_maximum_20' => 'Your username must be a maximum of 20 characters long.',
-	'mcname_minimum_3' => 'Your Minecraft username must be a minimum of 3 characters long.',
-	'mcname_maximum_20' => 'Your Minecraft username must be a maximum of 20 characters long.',
-	'password_minimum_6' => 'Your password must be at least 6 characters long.',
-	'password_maximum_30' => 'Your password must be a maximum of 30 characters long.',
-	'passwords_dont_match' => 'Your passwords do not match.',
-	'username_mcname_email_exists' => 'Your username, Minecraft username or email address already exists. Have you already created an account?',
-	'invalid_mcname' => 'Your Minecraft username is not a valid account',
-	'mcname_lookup_error' => 'There was an error contacting Mojang\'s servers. Please try again later.',
-	'signature_maximum_900' => 'Your signature must be a maximum of 900 characters.',
-	'invalid_date_of_birth' => 'Invalid date of birth.',
-	'location_required' => 'Please enter a location.',
-	'location_minimum_2' => 'Your location must be a minimum of 2 characters.',
-	'location_maximum_128' => 'Your location must be a maximum of 128 characters.',
+	'registration_check_email' => 'Por favor, verifique seu email para validar seu cadastro. Você está impossibilitado de entrar até que o mesmo seja validado.',
+	'unknown_login_error' => 'Desculpe, ocorreu um erro desconhecido ao processar seu login. Tente novamente mais tarde.',
+	'validation_complete' => 'Obrigado por se cadastrar! Você pode se logar agora.',
+	'validation_error' => 'Erro ao processar seu pedido. Tente clicar no link novamente.',
+	'registration_error' => 'Certifique-se de ter preenchido todos os campos, e que seu nome de usuário possua entre 3 e 20 caracteres e sua senha possua entre 6 e 30 caracteres.',
+	'username_required' => 'Por favor, informe um usuário.',
+	'password_required' => 'Por favor, informe uma senha.',
+	'email_required' => 'Por favor, informe um endereço de email.',
+	'mcname_required' => 'Por favor, informe um usuário Minecraft.',
+	'accept_terms' => 'Você precisa aceitar os termos e condições antes de prosseguir.',
+	'invalid_recaptcha' => 'Código reCAPTCHA inválido.',
+	'username_minimum_3' => 'Seu nome de usuário deve ter um mínimo de 3 caracteres.',
+	'username_maximum_20' => 'Seu nome de usuário deve ter um máximo de 20 caracteres.',
+	'mcname_minimum_3' => 'Seu nome de usuário Minecraft deve ter um mínimo de 3 caracteres.',
+	'mcname_maximum_20' => 'Seu nome de usuário Minecraft deve ter um máximo de 20 caracteres.',
+	'password_minimum_6' => 'Sua senha deve ter pelo menos 6 caracteres.',
+	'password_maximum_30' => 'Sua senha deve ter um máximo de 30 caracteres.',
+	'passwords_dont_match' => 'Suas senhas não coincidem.',
+	'username_mcname_email_exists' => 'Seu usuário, usuário Minecraft ou endereço de email já existe. Tem certeza de que já não criou uma conta?',
+	'invalid_mcname' => 'Seu nome de usuário Minecraft não é válido.',
+	'mcname_lookup_error' => 'Ouve um erro ao se comunicar com servidores da Mojang. Tente novamente mais tarde.',
+	'signature_maximum_900' => 'Sua assinatura deve possuir no máximo de 900 caracteres.',
+	'invalid_date_of_birth' => 'Data de nascimento inválida.',
+	'location_required' => 'Por favor, informe uma localização.',
+	'location_minimum_2' => 'Sua localização deve ter um mínimo de 2 caracteres.',
+	'location_maximum_128' => 'Sua localização deve ter um máximo de 128 caracteres.',
 	
 	// UserCP
 	'user_cp' => 'UserCP',
@@ -454,7 +454,7 @@ $user_language = array(
 	'view' => 'Ver',
 	'alert' => 'Alerta',
 	'when' => 'Quando',
-	'delete' => 'Excluír',
+	'delete' => 'Excluir',
 	'tag' => 'Tag do usuário',
 	'tagged_in_post' => 'Você foi marcado em um post',
 	'report' => 'Reportar',
@@ -462,13 +462,13 @@ $user_language = array(
 	
 	// Warnings
 	'you_have_received_a_warning' => 'Você recebeu um novo alerta de {x} dia {y}.', // Don't replace "{x}" or "{y}"
-	'acknowledge' => 'Acknowledge',
+	'acknowledge' => 'Reconhecer', //Acknowledge
 	
 	// Forgot password
-	'password_reset' => 'Password Reset',
-	'email_body' => 'You are receiving this email because you requested a password reset. In order to reset your password, please use the following link:', // Body for the password reset email
-	'email_body_2' => 'If you did not request the password reset, you can ignore this email.',
-	'password_email_set' => 'Success. Please check your emails for further instructions.',
+	'password_reset' => 'Resetar Senha',
+	'email_body' => 'Você está recebendo este email porque solicitou um resete de senha. A fim de redefinir sua senha, utilize o seguinte link:', // Body for the password reset email
+	'email_body_2' => 'Se você não solicitou uma redefinição de senha, ignore esse email.',
+	'password_email_set' => 'Concluído. Verifique seu email para ações futuras.',
 	'username_not_found' => 'Esse usuário não existe.',
 	'change_password' => 'Alterar Senha',
 	'your_password_has_been_changed' => 'Sua senha foi alterada.',
@@ -481,7 +481,7 @@ $user_language = array(
 	'pf_registered' => 'Cadastrado:',
 	'pf_posts' => 'Postagens:',
 	'pf_reputation' => 'Reputação:',
-	'user_hasnt_registered' => 'This user hasn\'t registered on our website yet',
+	'user_hasnt_registered' => 'Esse usuário não está cadastrado em seu site ainda',
 	'user_no_friends' => 'Esse usuário não adicionou nenhum amigo',
 	'send_message' => 'Enviar Mensagem',
 	'remove_friend' => 'Remover Amigo',
@@ -494,11 +494,11 @@ $user_language = array(
 	'followers' => 'SEGUIDORES',
 	'display_location' => 'De {x}.', // Don't replace {x}, which will be the user's location
 	'display_age_and_location' => '{x}, de {y}.', // Don't replace {x} which will be the user's age, and {y} which will be their location
-	'write_on_user_profile' => 'Write something on {x}\'s profile...', // Don't replace {x}
+	'write_on_user_profile' => 'Escreva algo no perfil de {x}...', // Don't replace {x}
 	'write_on_own_profile' => 'Escreva alguma coisa no seu perfil...',
 	'profile_posts' => 'Postagens no Perfil',
 	'no_profile_posts' => 'Nenhuma postagem ainda.',
-	'invalid_wall_post' => 'Invalid wall post. Please ensure your post is between 2 and 2048 characters.',
+	'invalid_wall_post' => 'Postagem inválida. Verifique se sua postagem possui entre 2 e 2048 caracteres.',
 	'about' => 'Sobre',
 	'reply' => 'Responder',
 	'x_likes' => '{x} curtidas', // Don't replace {x}
@@ -510,12 +510,12 @@ $user_language = array(
 	'last_5_posts' => 'Últimas 5 Postagens',
 	
 	// Staff applications
-	'staff_application' => 'Staff Application',
-	'application_submitted' => 'Application submitted successfully.',
-	'application_already_submitted' => 'You\'ve already submitted an application. Please wait until it is complete before submitting another.',
-	'not_logged_in' => 'Please log in to view that page.',
-	'application_accepted' => 'Your staff application has been accepted.',
-	'application_rejected' => 'Your staff application has been rejected.'
+	'staff_application' => 'Entre na Staff',
+	'application_submitted' => 'Formulário enviado com sucesso.',
+	'application_already_submitted' => 'Você enviou um formulário. Por favor, aguarde até que seja concluído antes de enviar outro.',
+	'not_logged_in' => 'Por favor, faça login para visualizar essa página.',
+	'application_accepted' => 'Seu pedido para ingressar-se na Staff foi aceito.',
+	'application_rejected' => 'Seu pedido para ingressar-se na Staff foi rejeitado.'
 );
 
 /*
@@ -526,7 +526,7 @@ $mod_language = array(
 	'overview' => 'Visão Geral',
 	'reports' => 'Relatórios',
 	'punishments' => 'Punimentos',
-	'staff_applications' => 'Staff Applications',
+	'staff_applications' => 'Recrutamentos para Staff',
 	
 	// Punishments
 	'ban' => 'Banir',
@@ -539,29 +539,29 @@ $mod_language = array(
 	'reason' => 'Razão:',
 	
 	// Reports
-	'report_closed' => 'Report closed.',
+	'report_closed' => 'Parecer fechado.',
 	'new_comment' => 'Novo comentário',
 	'comments' => 'Comentários',
 	'only_viewed_by_staff' => 'Apenas pode ser visto pela staff',
 	'reported_by' => 'Reportado por',
-	'close_issue' => 'Close issue',
-	'report' => 'Report:',
+	'close_issue' => 'Fechar problema',
+	'report' => 'Parecer:',
 	'view_reported_content' => 'Ver conteúdo reportado',
-	'no_open_reports' => 'No open reports',
+	'no_open_reports' => 'Nenhum parecer aberto',
 	'user_reported' => 'Usuário Reportado',
 	'type' => 'Tipo',
 	'updated_by' => 'Atualizado Por',
 	'forum_post' => 'Forum Post',
 	'user_profile' => 'Perfil de Usuário',
 	'comment_added' => 'Comentário Add.',
-	'new_report_submitted_alert' => 'New report submitted by {x} regarding user {y}', // Don't replace "{x}" or "{y}"
+	'new_report_submitted_alert' => 'Novo parecer enviado por {x} em relação ao usuário {y}', // Don't replace "{x}" or "{y}"
 	
 	// Staff applications
-	'comment_error' => 'Please ensure your comment is between 2 and 2048 characters long.',
-	'viewing_open_applications' => 'Viewing <span class="label label-info">open</span> applications. Change to <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
-	'viewing_accepted_applications' => 'Viewing <span class="label label-success">accepted</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=declined"><span class="label label-danger">declined</span></a>.',
-	'viewing_declined_applications' => 'Viewing <span class="label label-danger">declined</span> applications. Change to <a href="/mod/applications/"><span class="label label-info">open</span></a> or <a href="/mod/applications/?view=accepted"><span class="label label-success">accepted</span></a>.',
-	'time_applied' => 'Time Applied',
+	'comment_error' => 'Por favor, verifique se seu comentário possui de 2 à 2048 caracteres.',
+	'viewing_open_applications' => 'Visualizando formulários <span class="label label-info">abertos</span>. Alterar para <a href="/mod/applications/?view=accepted"><span class="label label-success">aceito</span></a> ou <a href="/mod/applications/?view=declined"><span class="label label-danger">rejeitado</span></a>.',
+	'viewing_accepted_applications' => 'Visualizando formulários <span class="label label-success">aceitos</span>. Alterar para <a href="/mod/applications/"><span class="label label-info">aberto</span></a> ou <a href="/mod/applications/?view=declined"><span class="label label-danger">rejeitado</span></a>.',
+	'viewing_declined_applications' => 'Visualizando formulários <span class="label label-danger">rejeitados</span>. Alterar para <a href="/mod/applications/"><span class="label label-info">aberto</span></a> ou <a href="/mod/applications/?view=accepted"><span class="label label-success">aceito</span></a>.',
+	'time_applied' => 'Tempo Aplicado',
 	'no_applications' => 'Nenhum pedido nesta categoria',
 	'viewing_app_from' => 'Visualizando pedido de {x}', // Don't replace "{x}"
 	'open' => 'Abrir',
@@ -611,7 +611,7 @@ $general_language = array(
 	// Other
 	'page_loaded_in' => 'Página carregada em {x}s', // Don't replace {x}; 's' stands for 'seconds'
 	'none' => 'Nenhum',
-	'404' => 'Desculpe, nós não econtramos esssa página.'
+	'404' => 'Desculpe, nós não encontramos esssa página.'
 );
 
 /* 
@@ -685,7 +685,7 @@ $forum_language = array(
 	'creating_topic_in_' => 'Criando tópico no fórum ',
 	'thread_title' => 'Título do Tópico',
 	'confirm_cancellation' => 'Você tem certeza?',
-	'label' => 'Etiqueta',
+	'label' => 'Rótulo',
 	
 	// Reports
 	'report_submitted' => 'Reporte enviado.',
