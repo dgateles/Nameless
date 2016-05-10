@@ -9,7 +9,7 @@
 // Language file for "Vote" addon
 
 $vote_language = array(
-	'vote' => 'Vote',
+	'vote' => 'Votar',
 	'vote_icon' => '', // Icon to display in navbar before text
-	'top_voters' => 'Top voters list coming soon'
+	'top_voters' => 'Top votadores em breve'
 );
