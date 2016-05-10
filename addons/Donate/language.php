@@ -9,12 +9,12 @@
 // Language file for "Donate" addon
 
 $donate_language = array(
-	'donate' => 'Donate',
+	'donate' => 'Doações',
 	'donate_icon' => '', // Icon to display before "Donate" in navbar
-	'latest_donors' => 'Latest Donors',
-	'agree_with_terms' => 'By donating, you agree with the Terms and Conditions',
+	'latest_donors' => 'Últimos Doadores',
+	'agree_with_terms' => 'Ao doar, você concorda com os Termos e Condições',
 	'link' => '(Link)',
-	'agree' => 'Agree &raquo;',
-	'cancel' => 'Cancel',
-	'select' => 'Select'
+	'agree' => 'Aceito &raquo;',
+	'cancel' => 'Cancelar',
+	'select' => 'Selecionar'
 );
