@@ -5,9 +5,7 @@
  *
  *  License: MIT
  */
-
 // Settings for the Donate addon
-
 // Ensure user is logged in, and is admin
 if($user->isLoggedIn()){
 	if($user->canViewACP($user->data()->id)){
@@ -246,7 +244,7 @@ if(empty($donation_settings)){
 	<h3>Automating the synchronisation</h3>
 	In order to automate the synchronisation, you will need to set up a cron job on your webserver. It will need to load the following URL:
 	<br />
-	<code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/addons/Donate/sync.php/?key=<?php echo $unique_key; ?></code>
+	<code>http://<?php echo $_SERVER['SERVER_NAME']; ?>/addons/Donate/sync.php?key=<?php echo $unique_key; ?></code>
 	<br /><br />
 	<strong>Please keep the above URL a secret!</strong>
 	<br /><br />
@@ -276,9 +274,8 @@ if(empty($donation_settings)){
 		$.ajax(
 			{
 				   type: "POST",
-				   url: "/addons/Donate/sync.php/?key=<?php echo $unique_key; ?>",
+				   url: "/addons/Donate/sync.php?key=<?php echo $unique_key; ?>",
 				   cache: false,
-
 				   success: function(response)
 				   {
 					$('#loadingModal').modal('hide');
