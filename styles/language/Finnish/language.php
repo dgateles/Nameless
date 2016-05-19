@@ -1,11 +1,10 @@
-﻿<?php 
+<?php 
 /*
  *	Made by Samerton
  *  http://worldscapemc.co.uk
  *
  *  License: MIT
  */
-
 /*
  *  Finnish Language
  */
@@ -323,7 +322,6 @@ $admin_language = array(
 	'download' => 'Lataa',
 	'update_warning' => 'Varoitus: Varmista, että olet ladannut päivityksen ja ladannut sisällön palvelimelle!'
 );
-
 /*
  *  Navbar
  */
@@ -343,7 +341,6 @@ $navbar_language = array(
 	'forum_icon' => '',
 	'staff_apps_icon' => ''
 );
-
 /*
  * User Related
  */
@@ -440,6 +437,19 @@ $user_language = array(
 	'update_minecraft_name_help' => 'This will update your website username to your current Minecraft username. You can only perform this action once every 30 days.',
 	'unable_to_update_mcname' => 'Unable to update Minecraft username.',
 	'display_age_on_profile' => 'Display age on profile?',
+	'two_factor_authentication' => 'Two Factor Authentication',
+	'enable_tfa' => 'Enable Two Factor Authentication',
+	'tfa_type' => 'Two Factor Authentication type:',
+	'authenticator_app' => 'Authentication App',
+	'tfa_scan_code' => 'Please scan the following code within your authentication app:',
+	'tfa_code' => 'If your device does not have a camera, or you are unable to scan the QR code, please input the following code:',
+	'tfa_enter_code' => 'Please enter the code displaying within your authentication app:',
+	'invalid_tfa' => 'Invalid code, please try again.',
+	'tfa_successful' => 'Two factor authentication set up successfully. You will need to authenticate every time you log in from now on.',
+	'confirm_tfa_disable' => 'Are you sure you wish to disable two factor authentication?',
+	'tfa_disabled' => 'Two factor authentication disabled.',
+	'tfa_enter_email_code' => 'We have sent you a code within an email for verification. Please enter the code now:',
+	'tfa_email_contents' => 'A login attempt has been made to your account. If this was you, please input the following two factor authentication code when asked to do so. If this was not you, you can ignore this email, however a password reset is advised. The code is only valid for 10 minutes.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Näytetään lukemattomat ilmoitukset. Merkitse <a href="/user/alerts/?view=read"><span class="label label-success">luetuiksi</span></a>.',
@@ -513,7 +523,6 @@ $user_language = array(
 	'application_accepted' => 'Hakemuksesi on hyväksytty.',
 	'application_rejected' => 'Hakemuksesi on hylätty.'
 );
-
 /*
  *  Moderation related
  */
@@ -567,7 +576,6 @@ $mod_language = array(
 	'decline' => 'Hylkää',
 	'new_app_submitted_alert' => 'Uusi hakemus lähetetty käyttäjältä {x}' // Don't replace "{x}"
 );
-
 /* 
  *  General
  */
@@ -592,6 +600,7 @@ $general_language = array(
 	'error' => 'Virhe',
 	'view' => 'Näytä',
 	'info' => 'Info',
+	'next' => 'Next',
 	
 	// Play page
 	'connect_with' => 'Palvelimen IP {x}', // Don't replace {x}
@@ -609,7 +618,6 @@ $general_language = array(
 	'none' => 'Ei yhtään',
 	'404' => 'Emme löytäneet sivua.'
 );
-
 /* 
  *  Forum
  */
@@ -704,7 +712,6 @@ $forum_language = array(
 	// Search
 	'search_error' => 'Laita hakukyselyyn 1-20 merkkiä.'
 );
-
 /*
  *  Emails
  */
@@ -714,7 +721,6 @@ $email_language = array(
 	'message' => 'Kiitos rekisteröitymisestä! Suorittaaksesi rekisteröinnin, klikkaa seuraavaa linkkiä:',
 	'thanks' => 'Kiitos,'
 );
-
 /*
  *  Time language, eg "1 minute ago"
  *  DON'T replace "{x}" in any translations
