@@ -4,18 +4,15 @@ session_start();
 if(!isset($page)){
 	die();
 }
-
 // Require config
 if(!isset($path)){
 	require('core/config.php');
 } else {
 	require($path . 'core/config.php');
 }
-
 /*
  *  Autoload classes
  */
-
 if(!isset($path)){
 	require_once 'core/includes/smarty/Smarty.class.php'; // Smarty
 	require_once 'core/includes/sanitize.php'; // Sanitisation
@@ -23,7 +20,7 @@ if(!isset($path)){
 	// Normal autoloader
 	spl_autoload_register(function($class) {
 		if(strpos($class, 'TeamSpeak3') === false){
-			require_once 'core/classes/' . $class . '.php';
+			require_once 'core/classes/' . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
 		}
 	});
 	
@@ -32,17 +29,16 @@ if(!isset($path)){
 	require_once '../../includes/smarty/Smarty.class.php';
 	require_once '../../includes/sanitize.php';
 	spl_autoload_register(function($class) {
-		require_once '../../classes/' . $class . '.php';
+		require_once '../../classes/' . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
 	});
 } else if($path === "../../"){
 	// For alerts/PMs
 	require_once '../includes/smarty/Smarty.class.php';
 	require_once '../includes/sanitize.php';
 	spl_autoload_register(function($class) {
-		require_once '../classes/' . $class . '.php';
+		require_once '../classes/' . str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
 	});
 }
-
 /* 
  *  Initialise
  */
@@ -53,7 +49,6 @@ if($page !== 'install'){
 	$smarty 	= new Smarty();
 	$c	 		= new Cache();
 }
-
 // Error reporting?
 if($page !== 'install'){
 	$error_reporting = $queries->getWhere('settings', array('name', '=', 'error_reporting'));
@@ -69,7 +64,6 @@ if($page !== 'install'){
 		ini_set('display_errors', 0);
 	}
 }
-
 // Process if user has checked "remember me"
 if($page !== 'install'){
 	if(Cookie::exists(Config::get('remember/cookie_name')) && !Session::exists(Config::get('session/session_name'))) {
@@ -82,11 +76,9 @@ if($page !== 'install'){
 		}
 	}
 }
-
 if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $page !== 'api' && $page !== 'query_apps' && $page !== 'banner'){
 	// Set path for Smarty
 	$smarty->setCompileDir('cache/templates_c');
-
 	// Language
 	$c->setCache('languagecache');
 	$language = $c->retrieve('language');
@@ -95,14 +87,12 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 	} else {
 		require('styles/language/EnglishUK/language.php');
 	}
-
 	// Theme
 	$c->setCache('themecache');
 	$theme_result = $c->retrieve('theme');
 	if(!($theme_result)) $theme_result = 'Bootstrap';
 	
 	$inverse_navbar = $c->retrieve('inverse_navbar');
-
 	// Template
 	$c->setCache('templatecache');
 	$template = $c->retrieve('template');
@@ -142,7 +132,6 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 	 */ 
 	$play_enabled = $queries->getWhere('settings', array('name', '=', 'play_page_enabled'));
 	$play_enabled = $play_enabled[0]->value;
-
 	
 	// Get enabled modules
 	$modules = $queries->getWhere('core_modules', array('enabled', '=', 1));
@@ -150,12 +139,10 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 		// Require its initialisation file
 		require('core/modules/' . htmlspecialchars($module->name) . '/initialisation.php');
 	}
-
 	// Get site name from cache
 	$c->setCache('sitenamecache');
 	$sitename = htmlspecialchars($c->retrieve('sitename'));
 	$smarty->assign('SITE_NAME', $sitename);
-
 	// Perform tasks for signed in users
 	if($user->isLoggedIn()){
 		
@@ -188,10 +175,8 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 				$reports = false; // No open reports
 			}
 		}
-
 		// Initial private message and alert check
 		$pms = $queries->getWhere('private_messages_users', array('user_id', '=', $user->data()->id));
-
 		$unread_pms = array();
 		foreach($pms as $pm){
 			if($pm->read != 1){
@@ -201,7 +186,6 @@ if($page !== 'query_alerts' && $page !== 'query_pms' && $page !== 'install' && $
 		}
 		
 		$alerts = $queries->getWhere('alerts', array('user_id', '=', $user->data()->id));
-
 		$unread_alerts = array();
 		foreach($alerts as $alert){
 			if($alert->read != 1){
