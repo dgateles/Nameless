@@ -42,7 +42,7 @@ class Infractions {
 			$results[$i]["uuid"] = $ban->UUID;
 			$results[$i]["staff"] = htmlspecialchars($ban->ban_staff);
 			$results[$i]["issued"] = strtotime($ban->ban_begin);
-			$results[$i]["issued_human"] = date("jS M Y, H:i", strtotime($ban->ban_begin));
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", strtotime($ban->ban_begin));
 			if($ban->ban_reason !== null){
 				$results[$i]["reason"] = htmlspecialchars($ban->ban_reason);
 			} else {
@@ -61,10 +61,10 @@ class Infractions {
 				$results[$i]["type_human"] = '<span class="label label-danger">' . $this->_language['temp_ban'] . '</span>';
 				if($ban->ban_state == 0){
 					$results[$i]["expires"] = strtotime($ban->ban_end);
-					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($ban->ban_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($ban->ban_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
 				} else {
 					$results[$i]["expires"] = strtotime($ban->ban_end);
-					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($ban->ban_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($ban->ban_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
 				}
 			} else {
 				$results[$i]["type"] = "ban";
@@ -83,7 +83,7 @@ class Infractions {
 			$results[$i]["uuid"] = $kick->UUID;
 			$results[$i]["staff"] = htmlspecialchars($kick->kick_staff);
 			$results[$i]["issued"] = strtotime($kick->kick_date);
-			$results[$i]["issued_human"] = date("jS M Y, H:i", strtotime($kick->kick_date));
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", strtotime($kick->kick_date));
 			$results[$i]["reason"] = htmlspecialchars($kick->kick_reason);
 			$results[$i]["type"] = "kick";
 			$results[$i]["type_human"] = '<span class="label label-primary">' . $this->_language['kick'] . '</span>';
@@ -96,7 +96,7 @@ class Infractions {
 			$results[$i]["uuid"] = $mute->UUID;
 			$results[$i]["staff"] = htmlspecialchars($mute->mute_staff);
 			$results[$i]["issued"] = strtotime($mute->mute_begin);
-			$results[$i]["issued_human"] = date("jS M Y, H:i", strtotime($mute->mute_begin));
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", strtotime($mute->mute_begin));
 			if($mute->mute_reason !== null){
 				$results[$i]["reason"] = htmlspecialchars($mute->mute_reason);
 			} else {
@@ -115,10 +115,10 @@ class Infractions {
 			if($mute->mute_end !== null){
 				if($mute->mute_state == 0){
 					$results[$i]["expires"] = strtotime($mute->mute_end);
-					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($mute->mute_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($mute->mute_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
 				} else {
 					$results[$i]["expires"] = strtotime($mute->mute_end);
-					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($mute->mute_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($mute->mute_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
 				}
 			} else {
 				if($mute->mute_unmutedate !== null){
@@ -197,12 +197,12 @@ class Infractions {
 			} else {
 				// We need to get the player's username first
 				$username = $this->_db->get('bm_players', array('id', '=', $ban->actor_id))->results();
-				$username = htmlspecialchars($username[0]->name);
+				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $ban->created;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $ban->created);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $ban->created);
 			
 			// Is a reason set?
 			if($ban->reason !== null){
@@ -215,7 +215,7 @@ class Infractions {
 			if($ban->expires != 0){
 				$results[$i]["type"] = "temp_ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['temp_ban'] . "</span>";
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 				$results[$i]["expires"] = $ban->expires;
 			} else {
 				$results[$i]["type"] = "ban";
@@ -237,12 +237,12 @@ class Infractions {
 			} else {
 				// We need to get the player's username first
 				$username = $this->_db->get('bm_players', array('id', '=', $ban->pastActor_id))->results();
-				$username = htmlspecialchars($username[0]->name);
+				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $ban->pastCreated;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $ban->pastCreated);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $ban->pastCreated);
 			
 			// Is a reason set?
 			if($ban->reason !== null){
@@ -256,7 +256,7 @@ class Infractions {
 				$results[$i]["type"] = "temp_ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['temp_ban'] . "</span>";
 				$results[$i]["expires"] = strtotime($ban->expired);
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 			} else {
 				$results[$i]["type"] = "ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['ban'] . "</span>";
@@ -276,12 +276,12 @@ class Infractions {
 			} else {
 				// We need to get the player's username first
 				$username = $this->_db->get('bm_players', array('id', '=', $kick->actor_id))->results();
-				$username = htmlspecialchars($username[0]->name);
+				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $kick->created;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $kick->created);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $kick->created);
 			$results[$i]["reason"] = htmlspecialchars($kick->reason);
 			$results[$i]["type"] = "kick";
 			$results[$i]["type_human"] = "<span class=\"label label-primary\">" . $this->_language['kick'] . "</span>";
@@ -300,12 +300,12 @@ class Infractions {
 			} else {
 				// We need to get the player's username first
 				$username = $this->_db->get('bm_players', array('id', '=', $mute->actor_id))->results();
-				$username = htmlspecialchars($username[0]->name);
+				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $mute->created;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $mute->created);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $mute->created);
 			
 			// Is a reason set?
 			if($mute->reason !== null){
@@ -319,7 +319,7 @@ class Infractions {
 			
 			// Is it a temp mute?
 			if($mute->expires != 0){
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 				$results[$i]["expires"] = $mute->expires;
 			} else {
 				$results[$i]["expires_human"] = "<span class=\"label label-danger\">" . $this->_language['permanent'] . "</span>";
@@ -341,12 +341,12 @@ class Infractions {
 			} else {
 				// We need to get the player's username first
 				$username = $this->_db->get('bm_players', array('id', '=', $mute->pastActor_id))->results();
-				$username = htmlspecialchars($username[0]->name);
+				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $mute->pastCreated;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $mute->pastCreated);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $mute->pastCreated);
 			
 			// Is a reason set?
 			if($mute->reason !== null){
@@ -361,7 +361,7 @@ class Infractions {
 			// Was it a temp-ban?
 			if($mute->expired != 0){
 				$results[$i]["expires"] = strtotime($mute->expired);
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 			} else {
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['mute'] . "</span>";
 				$results[$i]["expires_human"] = "<span class=\"label label-success\">" . $this->_language['revoked'] . "</span>";
@@ -380,12 +380,12 @@ class Infractions {
 			} else {
 				// We need to get the player's username first
 				$username = $this->_db->get('bm_players', array('id', '=', $warning->actor_id))->results();
-				$username = htmlspecialchars($username[0]->name);
+				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $warning->created;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $warning->created);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $warning->created);
 			$results[$i]["reason"] = htmlspecialchars($warning->reason);
 			$results[$i]["type"] = "warning";
 			$results[$i]["type_human"] = "<span class=\"label label-info\">" . $this->_language['warning'] . "</span>";
@@ -465,14 +465,14 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) if(count($username)) $username = $username[0]->name; else $username = 'Unknown'; else $username = 'Unknown';
 
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $ban->id;
 			$results[$i]["staff"] = htmlspecialchars($ban->banned_by_name);
 			
 			$results[$i]["issued"] = $ban->time / 1000;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $ban->time / 1000);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $ban->time / 1000);
 			
 			// Is a reason set?
 			if($ban->reason !== null){
@@ -486,10 +486,10 @@ class Infractions {
 				$results[$i]["type"] = "temp_ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['temp_ban'] . "</span>";
 				if($ban->active == 0x01){
-					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 					$results[$i]["expires"] = $ban->until / 1000;
 				} else {
-					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 					$results[$i]["expires"] = $ban->until / 1000;
 				}
 			} else {
@@ -520,14 +520,14 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
 			
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $mute->id;
 			$results[$i]["staff"] = htmlspecialchars($mute->banned_by_name);
 			
 			$results[$i]["issued"] = $mute->time / 1000;
-			$results[$i]["issued_human"] = date("jS M Y, H:i", $mute->time / 1000);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i", $mute->time / 1000);
 			
 			// Is a reason set?
 			if($mute->reason !== null){
@@ -542,10 +542,10 @@ class Infractions {
 			// Is it a temp-mute?
 			if($mute->until != -1){
 				if($mute->active == 0x01){
-					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 					$results[$i]["expires"] = $mute->until / 1000;
 				} else {
-					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 					$results[$i]["expires"] = $mute->until / 1000;
 				}
 			} else {
@@ -573,14 +573,15 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
+
 			
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $warning->id;
 			$results[$i]["staff"] = htmlspecialchars($warning->banned_by_name);
 			
 			$results[$i]["issued"] = $warning->time / 1000;
-			$results[$i]["issued_human"] = date("jS M Y, H:i:s", $warning->time / 1000);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i:s", $warning->time / 1000);
 			
 			// Is a reason set?
 			if($warning->reason !== null){
@@ -607,14 +608,14 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = $username[0]->name;
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
 			
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $kick->id;
 			$results[$i]["staff"] = htmlspecialchars($kick->banned_by_name);
 			
 			$results[$i]["issued"] = $kick->time / 1000;
-			$results[$i]["issued_human"] = date("jS M Y, H:i:s", $kick->time / 1000);
+			$results[$i]["issued_human"] = date("d/m/Y, H:i:s", $kick->time / 1000);
 			
 			// Is a reason set?
 			if($kick->reason !== null){
@@ -655,7 +656,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		} else if($type === "mute"){
@@ -669,7 +670,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		} else if($type === "warning"){
@@ -683,7 +684,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		} else if($type === "kick"){
@@ -697,7 +698,7 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			$username = htmlspecialchars($username[0]->name);
+			if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
 			
 			return array($results[0], $username);
 		}
