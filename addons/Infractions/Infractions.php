@@ -10,11 +10,13 @@
 class Infractions {
 	private $_db,
 			$_data,
-			$_language;
+			$_language,
+			$_prefix;
 	
 	// Connect to database
 	public function __construct($inf_db, $language) {
 		$this->_db = DB_Custom::getInstance($inf_db['address'], $inf_db['name'], $inf_db['username'], $inf_db['password']);
+		$this->_prefix = $inf_db['prefix'];
 		$this->_language = $language;
 	}
 	
@@ -30,9 +32,9 @@ class Infractions {
 			$symbol = "<>";
 			$equals = "0";
 		}
-		$bans = $this->_db->get('bat_ban', array($field, $symbol, $equals))->results();
-		$kicks = $this->_db->get('bat_kick', array($field, $symbol, $equals))->results();
-		$mutes = $this->_db->get('bat_mute', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'ban', array($field, $symbol, $equals))->results();
+		$kicks = $this->_db->get($this->_prefix . 'kick', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'mute', array($field, $symbol, $equals))->results();
 		
 		$results = array();
 		$i = 0;
@@ -42,7 +44,7 @@ class Infractions {
 			$results[$i]["uuid"] = $ban->UUID;
 			$results[$i]["staff"] = htmlspecialchars($ban->ban_staff);
 			$results[$i]["issued"] = strtotime($ban->ban_begin);
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", strtotime($ban->ban_begin));
+			$results[$i]["issued_human"] = date("jS M Y, H:i", strtotime($ban->ban_begin));
 			if($ban->ban_reason !== null){
 				$results[$i]["reason"] = htmlspecialchars($ban->ban_reason);
 			} else {
@@ -61,10 +63,10 @@ class Infractions {
 				$results[$i]["type_human"] = '<span class="label label-danger">' . $this->_language['temp_ban'] . '</span>';
 				if($ban->ban_state == 0){
 					$results[$i]["expires"] = strtotime($ban->ban_end);
-					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($ban->ban_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($ban->ban_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
 				} else {
 					$results[$i]["expires"] = strtotime($ban->ban_end);
-					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($ban->ban_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($ban->ban_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
 				}
 			} else {
 				$results[$i]["type"] = "ban";
@@ -83,7 +85,7 @@ class Infractions {
 			$results[$i]["uuid"] = $kick->UUID;
 			$results[$i]["staff"] = htmlspecialchars($kick->kick_staff);
 			$results[$i]["issued"] = strtotime($kick->kick_date);
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", strtotime($kick->kick_date));
+			$results[$i]["issued_human"] = date("jS M Y, H:i", strtotime($kick->kick_date));
 			$results[$i]["reason"] = htmlspecialchars($kick->kick_reason);
 			$results[$i]["type"] = "kick";
 			$results[$i]["type_human"] = '<span class="label label-primary">' . $this->_language['kick'] . '</span>';
@@ -96,7 +98,7 @@ class Infractions {
 			$results[$i]["uuid"] = $mute->UUID;
 			$results[$i]["staff"] = htmlspecialchars($mute->mute_staff);
 			$results[$i]["issued"] = strtotime($mute->mute_begin);
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", strtotime($mute->mute_begin));
+			$results[$i]["issued_human"] = date("jS M Y, H:i", strtotime($mute->mute_begin));
 			if($mute->mute_reason !== null){
 				$results[$i]["reason"] = htmlspecialchars($mute->mute_reason);
 			} else {
@@ -115,10 +117,10 @@ class Infractions {
 			if($mute->mute_end !== null){
 				if($mute->mute_state == 0){
 					$results[$i]["expires"] = strtotime($mute->mute_end);
-					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($mute->mute_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-success" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($mute->mute_end)), $this->_language['expired_x']) . '">' . $this->_language['expired'] . '</span>';
 				} else {
 					$results[$i]["expires"] = strtotime($mute->mute_end);
-					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("d/m/Y", strtotime($mute->mute_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
+					$results[$i]["expires_human"] = '<span class="label label-danger" rel="tooltip" data-trigger="hover" data-original-title="' . str_replace('{x}', date("jS M Y", strtotime($mute->mute_end)), $this->_language['expires_x']) . '">' . $this->_language['active'] . '</span>';
 				}
 			} else {
 				if($mute->mute_unmutedate !== null){
@@ -145,13 +147,13 @@ class Infractions {
 	// Params: $type (string), either ban, kick or mute; $id (int), ID of infraction
 	public function bat_getInfraction($type, $id) {
 		if($type === "ban" || $type === "temp_ban"){
-			$result = $this->_db->get('bat_ban', array("ban_id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'ban', array("ban_id", "=", $id))->results();
 			return $result;
 		} else if($type === "kick"){
-			$result = $this->_db->get('bat_kick', array("kick_id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'kick', array("kick_id", "=", $id))->results();
 			return $result;
 		} else if($type === "mute"){
-			$result = $this->_db->get('bat_mute', array("mute_id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'mute', array("mute_id", "=", $id))->results();
 			return $result;
 		}
 		return false;
@@ -161,7 +163,7 @@ class Infractions {
 	// Params: $uuid (string) - UUID of user
 	public function bat_getUsernameFromUUID($uuid){
 		// Query database
-		$results = $this->_db->get('bat_players', array('uuid', '=', $uuid))->results();
+		$results = $this->_db->get($this->_prefix . 'players', array('uuid', '=', $uuid))->results();
 		return $results;
 	}
 
@@ -178,10 +180,10 @@ class Infractions {
 			$symbol = "<>";
 			$equals = "0";
 		}
-		$bans = $this->_db->get('bm_player_bans', array($field, $symbol, $equals))->results();
-		$kicks = $this->_db->get('bm_player_kicks', array($field, $symbol, $equals))->results();
-		$mutes = $this->_db->get('bm_player_mutes', array($field, $symbol, $equals))->results();
-		$warnings = $this->_db->get('bm_player_warnings', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'player_bans', array($field, $symbol, $equals))->results();
+		$kicks = $this->_db->get($this->_prefix . 'player_kicks', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'player_mutes', array($field, $symbol, $equals))->results();
+		$warnings = $this->_db->get($this->_prefix . 'player_warnings', array($field, $symbol, $equals))->results();
 		
 		$results = array();
 		$i = 0;
@@ -196,13 +198,13 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $ban->actor_id))->results();
-				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $ban->actor_id))->results();
+				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $ban->created;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $ban->created);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $ban->created);
 			
 			// Is a reason set?
 			if($ban->reason !== null){
@@ -215,7 +217,7 @@ class Infractions {
 			if($ban->expires != 0){
 				$results[$i]["type"] = "temp_ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['temp_ban'] . "</span>";
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 				$results[$i]["expires"] = $ban->expires;
 			} else {
 				$results[$i]["type"] = "ban";
@@ -225,7 +227,7 @@ class Infractions {
 			$i++;
 		}
 		// Bans - next, previous bans
-		$bans = $this->_db->get('bm_player_ban_records', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'player_ban_records', array($field, $symbol, $equals))->results();
 		foreach($bans as $ban){
 			$results[$i]["id"] = $ban->id;
 			$results[$i]["uuid"] = bin2hex($ban->player_id);
@@ -236,13 +238,13 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $ban->pastActor_id))->results();
-				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $ban->pastActor_id))->results();
+				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $ban->pastCreated;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $ban->pastCreated);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $ban->pastCreated);
 			
 			// Is a reason set?
 			if($ban->reason !== null){
@@ -256,7 +258,7 @@ class Infractions {
 				$results[$i]["type"] = "temp_ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['temp_ban'] . "</span>";
 				$results[$i]["expires"] = strtotime($ban->expired);
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 			} else {
 				$results[$i]["type"] = "ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['ban'] . "</span>";
@@ -275,13 +277,13 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $kick->actor_id))->results();
-				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $kick->actor_id))->results();
+				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $kick->created;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $kick->created);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $kick->created);
 			$results[$i]["reason"] = htmlspecialchars($kick->reason);
 			$results[$i]["type"] = "kick";
 			$results[$i]["type_human"] = "<span class=\"label label-primary\">" . $this->_language['kick'] . "</span>";
@@ -299,13 +301,13 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $mute->actor_id))->results();
-				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $mute->actor_id))->results();
+				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $mute->created;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $mute->created);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $mute->created);
 			
 			// Is a reason set?
 			if($mute->reason !== null){
@@ -319,7 +321,7 @@ class Infractions {
 			
 			// Is it a temp mute?
 			if($mute->expires != 0){
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->expires), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 				$results[$i]["expires"] = $mute->expires;
 			} else {
 				$results[$i]["expires_human"] = "<span class=\"label label-danger\">" . $this->_language['permanent'] . "</span>";
@@ -329,7 +331,7 @@ class Infractions {
 		}
 		
 		// Mutes - next, previous mutes
-		$mutes = $this->_db->get('bm_player_mute_records', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'player_mute_records', array($field, $symbol, $equals))->results();
 		foreach($mutes as $mute){
 			$results[$i]["id"] = $mute->id;
 			$results[$i]["uuid"] = bin2hex($mute->player_id);
@@ -340,13 +342,13 @@ class Infractions {
 				$results[$i]["staff"] = 'Console';
 			} else {
 				// We need to get the player's username first
-				$username = $this->_db->get('bm_players', array('id', '=', $mute->pastActor_id))->results();
-				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
+				$username = $this->_db->get($this->_prefix . 'players', array('id', '=', $mute->pastActor_id))->results();
+				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $mute->pastCreated;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $mute->pastCreated);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $mute->pastCreated);
 			
 			// Is a reason set?
 			if($mute->reason !== null){
@@ -361,7 +363,7 @@ class Infractions {
 			// Was it a temp-ban?
 			if($mute->expired != 0){
 				$results[$i]["expires"] = strtotime($mute->expired);
-				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+				$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->expired), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 			} else {
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['mute'] . "</span>";
 				$results[$i]["expires_human"] = "<span class=\"label label-success\">" . $this->_language['revoked'] . "</span>";
@@ -380,12 +382,12 @@ class Infractions {
 			} else {
 				// We need to get the player's username first
 				$username = $this->_db->get('bm_players', array('id', '=', $warning->actor_id))->results();
-				if(count($username)) $username = htmlspecialchars($username[0]->name); else $username = 'Unknown';
+				$username = htmlspecialchars($username[0]->name);
 				$results[$i]["staff"] = $username;
 			}
 			
 			$results[$i]["issued"] = $warning->created;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $warning->created);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $warning->created);
 			$results[$i]["reason"] = htmlspecialchars($warning->reason);
 			$results[$i]["type"] = "warning";
 			$results[$i]["type_human"] = "<span class=\"label label-info\">" . $this->_language['warning'] . "</span>";
@@ -407,18 +409,18 @@ class Infractions {
 	// Params: $type (string), either ban, kick or mute; $id (int), ID of infraction
 	public function bm_getInfraction($type, $id, $past = false) {
 		if($type === "ban" || $type === "temp_ban"){
-			if(!$past) $result = $this->_db->get('bm_player_bans', array("id", "=", $id))->results();
-			else $result = $this->_db->get('bm_player_ban_records', array("id", "=", $id))->results();
+			if(!$past) $result = $this->_db->get($this->_prefix . 'player_bans', array("id", "=", $id))->results();
+			else $result = $this->_db->get($this->_prefix . 'player_ban_records', array("id", "=", $id))->results();
 			return $result;
 		} else if($type === "kick"){
-			$result = $this->_db->get('bm_player_kicks', array("id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'player_kicks', array("id", "=", $id))->results();
 			return $result;
 		} else if($type === "mute"){
-			if(!$past) $result = $this->_db->get('bm_player_mutes', array("id", "=", $id))->results();
-			else $result = $this->_db->get('bm_player_mute_records', array("id", "=", $id))->results();
+			if(!$past) $result = $this->_db->get($this->_prefix . 'player_mutes', array("id", "=", $id))->results();
+			else $result = $this->_db->get($this->_prefix . 'player_mute_records', array("id", "=", $id))->results();
 			return $result;
 		} else if($type === "warning"){
-			$result = $this->_db->get('bm_player_warnings', array("id", "=", $id))->results();
+			$result = $this->_db->get($this->_prefix . 'player_warnings', array("id", "=", $id))->results();
 			return $result;
 		}
 		return false;
@@ -427,7 +429,7 @@ class Infractions {
 	// Receive the username from an ID (Ban Management)
 	// Params: $id (string (binary)), player_id of user to lookup
 	public function bm_getUsernameFromID($id) {
-		$result = $this->_db->get('bm_players', array('id', '=', $id))->results();
+		$result = $this->_db->get($this->_prefix . 'players', array('id', '=', $id))->results();
 		if(count($result)){
 			return htmlspecialchars($result[0]->name);
 		}
@@ -447,17 +449,17 @@ class Infractions {
 			$equals = "0";
 		}
 
-		$bans = $this->_db->get('litebans_bans', array($field, $symbol, $equals))->results();
-		$kicks = $this->_db->get('litebans_kicks', array($field, $symbol, $equals))->results();
-		$mutes = $this->_db->get('litebans_mutes', array($field, $symbol, $equals))->results();
-		$warnings = $this->_db->get('litebans_warnings', array($field, $symbol, $equals))->results();
+		$bans = $this->_db->get($this->_prefix . 'bans', array($field, $symbol, $equals))->results();
+		$kicks = $this->_db->get($this->_prefix . 'kicks', array($field, $symbol, $equals))->results();
+		$mutes = $this->_db->get($this->_prefix . 'mutes', array($field, $symbol, $equals))->results();
+		$warnings = $this->_db->get($this->_prefix . 'warnings', array($field, $symbol, $equals))->results();
 		
 		$results = array();
 		$i = 0;
 
 		// Bans
 		foreach($bans as $ban){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($ban->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($ban->uuid)))->results();
 			
 			if(count($username) > 1){
 				// get most recent name
@@ -465,14 +467,14 @@ class Infractions {
 					return strtotime($b->date) - strtotime($a->date);
 				});
 			}
-			if(count($username)) if(count($username)) $username = $username[0]->name; else $username = 'Unknown'; else $username = 'Unknown';
+			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
 
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $ban->id;
 			$results[$i]["staff"] = htmlspecialchars($ban->banned_by_name);
 			
 			$results[$i]["issued"] = $ban->time / 1000;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $ban->time / 1000);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $ban->time / 1000);
 			
 			// Is a reason set?
 			if($ban->reason !== null){
@@ -486,10 +488,10 @@ class Infractions {
 				$results[$i]["type"] = "temp_ban";
 				$results[$i]["type_human"] = "<span class=\"label label-danger\">" . $this->_language['temp_ban'] . "</span>";
 				if($ban->active == 0x01){
-					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 					$results[$i]["expires"] = $ban->until / 1000;
 				} else {
-					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $ban->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $ban->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 					$results[$i]["expires"] = $ban->until / 1000;
 				}
 			} else {
@@ -512,7 +514,7 @@ class Infractions {
 		
 		// Mutes
 		foreach($mutes as $mute){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($mute->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($mute->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -527,7 +529,7 @@ class Infractions {
 			$results[$i]["staff"] = htmlspecialchars($mute->banned_by_name);
 			
 			$results[$i]["issued"] = $mute->time / 1000;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i", $mute->time / 1000);
+			$results[$i]["issued_human"] = date("jS M Y, H:i", $mute->time / 1000);
 			
 			// Is a reason set?
 			if($mute->reason !== null){
@@ -542,10 +544,10 @@ class Infractions {
 			// Is it a temp-mute?
 			if($mute->until != -1){
 				if($mute->active == 0x01){
-					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-success\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->until / 1000), $this->_language['expires_x']) . "\">" . $this->_language['active'] . "</span>";
 					$results[$i]["expires"] = $mute->until / 1000;
 				} else {
-					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("d/m/Y", $mute->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
+					$results[$i]["expires_human"] = "<span class=\"label label-info\" rel=\"tooltip\" data-trigger=\"hover\" data-original-title=\"" . str_replace('{x}', date("jS M Y", $mute->until / 1000), $this->_language['expired_x']) . "\">" . $this->_language['expired'] . "</span>";
 					$results[$i]["expires"] = $mute->until / 1000;
 				}
 			} else {
@@ -565,7 +567,7 @@ class Infractions {
 		
 		// Warnings
 		foreach($warnings as $warning){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($warning->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($warning->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -574,14 +576,13 @@ class Infractions {
 				});
 			}
 			if(count($username)) $username = $username[0]->name; else $username = 'Unknown';
-
 			
 			$results[$i]["username"] = htmlspecialchars($username);
 			$results[$i]["id"] = $warning->id;
 			$results[$i]["staff"] = htmlspecialchars($warning->banned_by_name);
 			
 			$results[$i]["issued"] = $warning->time / 1000;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i:s", $warning->time / 1000);
+			$results[$i]["issued_human"] = date("jS M Y, H:i:s", $warning->time / 1000);
 			
 			// Is a reason set?
 			if($warning->reason !== null){
@@ -600,7 +601,7 @@ class Infractions {
 		
 		// Kicks
 		foreach($kicks as $kick){
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($kick->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($kick->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -615,7 +616,7 @@ class Infractions {
 			$results[$i]["staff"] = htmlspecialchars($kick->banned_by_name);
 			
 			$results[$i]["issued"] = $kick->time / 1000;
-			$results[$i]["issued_human"] = date("d/m/Y, H:i:s", $kick->time / 1000);
+			$results[$i]["issued_human"] = date("jS M Y, H:i:s", $kick->time / 1000);
 			
 			// Is a reason set?
 			if($kick->reason !== null){
@@ -646,9 +647,9 @@ class Infractions {
 	// Params: $type (string), either ban, kick or mute; $id (int), ID of infraction
 	public function lb_getInfraction($type, $id) {
 		if($type === "ban" || $type === "temp_ban"){
-			$results = $this->_db->get('litebans_bans', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'bans', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -660,9 +661,9 @@ class Infractions {
 			
 			return array($results[0], $username);
 		} else if($type === "mute"){
-			$results = $this->_db->get('litebans_mutes', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'mutes', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -674,9 +675,9 @@ class Infractions {
 			
 			return array($results[0], $username);
 		} else if($type === "warning"){
-			$results = $this->_db->get('litebans_warnings', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'warnings', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
@@ -688,9 +689,9 @@ class Infractions {
 			
 			return array($results[0], $username);
 		} else if($type === "kick"){
-			$results = $this->_db->get('litebans_kicks', array("id", "=", $id))->results();
+			$results = $this->_db->get($this->_prefix . 'kicks', array("id", "=", $id))->results();
 			
-			$username = $this->_db->get('litebans_history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
+			$username = $this->_db->get($this->_prefix . 'history', array('uuid', '=', htmlspecialchars($results[0]->uuid)))->results();
 
 			if(count($username) > 1){
 				// get most recent name
