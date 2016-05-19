@@ -37,7 +37,6 @@ class User {
 		}
 		
 	}
-
 	// Get name of group from an ID
 	public function getGroupName($group_id) {
 		$data = $this->_db->get('groups', array('id', '=', $group_id));
@@ -60,7 +59,6 @@ class User {
 		}
 		return $ip;
 	}
-
 	// Add another user as a friend
 	public function addfriend($user1id, $user2id) {	
 		$this->_db->insert('friends', array(
@@ -281,7 +279,6 @@ class User {
 			if($user){
 				if(password_verify($password, $this->data()->password)) {
 					Session::put($this->_admSessionName, $this->data()->id);
-
 					$hash = Hash::unique();
 					$hashCheck = $this->_db->get('users_admin_session', array('user_id', '=', $this->data()->id));
 				
@@ -295,7 +292,6 @@ class User {
 					}
 				
 					Cookie::put($this->_cookieName . "_adm", $hash, 3600);
-
 				
 					return true;
 				}
@@ -401,7 +397,6 @@ class User {
 			return $return;
 		}
 	}
-
 	// Does the user exist?
 	public function exists() {
 		return (!empty($this->_data)) ? true : false;
@@ -521,11 +516,16 @@ class User {
 					$return[$pm->id]['users'] = $users;
 				}
 			}
+			
+			// Order the PMs by date - most recent first
+			usort($return, function($a, $b) {
+				return strtotime($b['date']) - strtotime($a['date']);
+			});
+			
 			return $return;
 		}
 		return false;
 	}
-
 	// Get a specific private message, and see if the user actually has permission to view it
 	public function getPM($pm_id = null, $user_id = null){
 		if($user_id && $pm_id){
@@ -544,7 +544,6 @@ class User {
 							break;
 						}
 					}
-
 					if($has_permission != true){
 						return false; // User doesn't have permission
 					}
