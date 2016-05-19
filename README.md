@@ -1,8 +1,8 @@
-# NamelessMC - version 1.0.8
+# NamelessMC - version 1.0.9
 
 NamelessMC is a free, easy to use & powerful website software for your Minecraft server, which includes a large range of features.
 
-Version 1.0.8 features:
+Version 1.0.9 features:
 
 - Template and theme system
 - Languages
@@ -21,6 +21,7 @@ Version 1.0.8 features:
 - Minecraft status
 - reCAPTCHA option
 - Voice server viewer
+- Two factor authentication
 
 Included addons:
 - Donate
@@ -75,7 +76,7 @@ Upcoming addons (these will need to be downloaded separately):
 * French: @CreaModZ
 * Dutch: Sander Jochems
 * Finnish: -kakara-
-* Português: @dgateles
+* Portuguese: @dgateles
 
 **NamelessMC On Spigot**
 * Resource: @Saphiria
