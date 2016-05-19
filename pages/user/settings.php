@@ -5,27 +5,35 @@
  *
  *  License: MIT
  */
-
 if(!$user->isLoggedIn()){
 	Redirect::to('/');
 	die();
 }
-
 // page for UserCP sidebar
 $user_page = 'settings';
-
+// Disable TFA
+if(isset($_GET['action']) && $_GET['action'] == 'disable_tfa'){
+	$queries->update('users', $user->data()->id, array(
+		'tfa_secret' => null,
+		'tfa_enabled' => 0,
+		'tfa_complete' => 0
+	));
+	
+	Session::flash('usercp_settings', '<div class="alert alert-success">' . $user_language['tfa_disabled'] . '</div>');
+	
+	// Redirect
+	echo '<script data-cfasync="false">window.location.replace("/user/settings");</script>';
+	die();
+}
 require('core/includes/htmlpurifier/HTMLPurifier.standalone.php'); // HTMLPurifier
 require('core/includes/password.php'); // For password hashing
 require('core/includes/validate_date.php'); // For date validation
-
 // Are custom usernames enabled?
 $custom_usernames = $queries->getWhere('settings', array('name', '=', 'displaynames'));
 $custom_usernames = $custom_usernames[0]->value;
-
 // Is UUID linking enabled?
 $uuid_linking = $queries->getWhere('settings', array('name', '=', 'uuid_linking'));
 $uuid_linking = $uuid_linking[0]->value;
-
 if(isset($_GET['action']) && $_GET['action'] == 'update_mcname'){
 	// Update Minecraft username
 	if($uuid_linking == '1'){
@@ -66,13 +74,11 @@ if(isset($_GET['action']) && $_GET['action'] == 'update_mcname'){
 	echo '<script data-cfasync="false">window.location.replace("/user/settings");</script>';
 	die();
 }
-
 // Is avatar uploading enabled?
 $avatar_enabled = $queries->getWhere('settings', array('name', '=', 'user_avatars'));
 $avatar_enabled = $avatar_enabled[0]->value;
-
 if(Input::exists()){
-	if(Token::check(Input::get('token'))) {
+	if(Token::check(Input::get('token'))){
 		$validate = new Validate();
 		
 		if(Input::get('action') == 'settings'){
@@ -279,13 +285,55 @@ if(Input::exists()){
 			
 				Session::flash('usercp_settings', $error_string);
 			}
+		} else if(Input::get('action') == 'tfa'){
+			// Two factor authentication
+			$validation = $validate->check($_POST, array(
+				'tfa_enabled' => array(
+					'required' => true
+				),
+				'tfa_type' => array(
+					'required' => true
+				)
+			));
+			
+			if($validation->passed()){
+				try {
+					if(Input::get('tfa_enabled') == 'on') $tfa = 1; else $tfa = 0;
+					
+					if(Input::get('tfa_type') == '2'){
+						$tfa_type = 0; 
+						$tfa_complete = 1;
+					} else {
+						$tfa_type = 1;
+						$tfa_complete = 0;
+					}
+					
+					// Update
+					$queries->update('users', $user->data()->id, array(
+						'tfa_enabled' => $tfa,
+						'tfa_type' => $tfa_type,
+						'tfa_secret' => null,
+						'tfa_complete' => $tfa_complete
+					));
+					
+					// Do we need to generate a secret key for the app?
+					if($tfa_type == 1 && !$user->data()->tfa_secret){
+						echo '<script data-cfasync="false">window.location.replace("/user/tfa");</script>';
+						die();
+					}
+					
+				} catch(Exception $e){
+					die($e->getMessage());
+				}
+				
+				// Done, redirect
+				echo '<script data-cfasync="false">window.location.replace("/user/settings");</script>';
+				die();
+			}
 		}
 	}
 }
-
-
 $token = Token::generate();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -448,6 +496,28 @@ $token = Token::generate();
 			<?php
 			}
 			?>
+			<br />
+			<form action="" method="post">
+			  <h4><?php echo $user_language['two_factor_authentication']; ?></h4>
+			  <div class="form-group">
+				<label for="enable_tfa"><?php echo $user_language['enable_tfa']; ?></label>
+				<input type="hidden" name="tfa_enabled" value="0">
+				<input id="enable_tfa" name="tfa_enabled" type="checkbox" class="js-switch" <?php if($user->data()->tfa_enabled == 1){ ?>checked <?php } ?>/>
+			  </div>
+			  <div class="form-group">
+			    <label for="tfa_type"><?php echo $user_language['tfa_type']; ?></label>
+			    <select class="form-control" name="tfa_type" id="tfa_type">
+				  <option value="2"<?php if($user->data()->tfa_type == 0) echo ' selected'; ?>><?php echo $user_language['email']; ?></option>
+				  <option value="1"<?php if($user->data()->tfa_type == 1) echo ' selected'; ?>><?php echo $user_language['authenticator_app']; ?></option>
+				</select>
+			  </div>
+			  <div class="form-group">
+			    <input type="hidden" name="action" value="tfa">
+			    <input type="hidden" name="token" value="<?php echo $token; ?>">
+				<input class="btn btn-primary" type="submit" name="submit" value="<?php echo $general_language['submit']; ?>">
+				<a class="btn btn-danger" href="/user/settings/?action=disable_tfa" onclick="return confirm('<?php echo $user_language['confirm_tfa_disable']; ?>');"><?php echo $admin_language['disable']; ?></a>
+			  </div>
+			</form>
 		  </div>
 		</div>
       </div>
@@ -483,7 +553,6 @@ $token = Token::generate();
 	<script src="/core/assets/plugins/switchery/switchery.min.js"></script>
 	<script>
 	var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
-
 	elems.forEach(function(html) {
 	  var switchery = new Switchery(html, {size: 'small'});
 	});
