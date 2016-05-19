@@ -35,16 +35,20 @@ if(!count($inf_plugin)){
 }
 
 $inf_plugin = $inf_plugin[0]->value;
-
+// Redirect to fix pagination if URL does not end in /
+if(substr($_SERVER['REQUEST_URI'], -1) !== '/' && !strpos($_SERVER['REQUEST_URI'], '?')){
+	echo '<script data-cfasync="false">window.location.replace(\'/infractions/\');</script>';
+	die();
+}
 // Get page number
 if(isset($_GET['p'])){
 	if(!is_numeric($_GET['p'])){
-		Redirect::to('/infractions');
+		Redirect::to('/infractions/');
 		die();
 	} else {
 		if($_GET['p'] == 1){ 
 			// Avoid bug in pagination class
-			Redirect::to('/infractions');
+			Redirect::to('/infractions/');
 			die();
 		}
 		$p = $_GET['p'];
@@ -63,11 +67,10 @@ if(isset($_GET['p'])){
     <meta name="author" content="Samerton">
 	<?php if(isset($custom_meta)){ echo $custom_meta; } ?>
 
+    <title><?php echo $sitename; ?> &bull; <?php echo $infractions_language['infractions']; ?></title>
+
 	<?php
 	// Generate header and navbar content
-	// Page title
-	$title = $infractions_language['infractions'];
-	
 	require('core/includes/template/generate.php');
 	?>
 	
@@ -152,36 +155,28 @@ if(isset($_GET['p'])){
 				} else {
 					$infractions_query = $queries->getWhere('users', array('uuid', '=', $infraction["uuid"]));
 					if(empty($infractions_query)){
-						
-						if($inf_plugin == 'bat') $mcname = $infractions->bat_getUsernameFromUUID($infraction['uuid']);
-						
-						if($inf_plugin != 'bat' || !count($mcname)){
-							$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
-							if(empty($infractions_query)){
-								$profile = ProfileUtils::getProfile($infraction["uuid"]);
-								if(empty($profile)){
-									echo 'Could not find that player';
-									die();
-								} else {
-									$result = $profile->getProfileAsArray();
-									$mcname = htmlspecialchars($result["username"]);
-									$uuid = htmlspecialchars($infraction["uuid"]);
-									try {
-										$queries->create("uuid_cache", array(
-											'mcname' => $mcname,
-											'uuid' => $uuid
-										));
-									} catch(Exception $e){
-										die($e->getMessage());
-									}
+						$infractions_query = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
+						if(empty($infractions_query)){
+							$profile = ProfileUtils::getProfile($infraction["uuid"]);
+							if(empty($profile)){
+								echo 'Could not find that player';
+								die();
+							} else {
+								$result = $profile->getProfileAsArray();
+								$mcname = htmlspecialchars($result["username"]);
+								$uuid = htmlspecialchars($infraction["uuid"]);
+								try {
+									$queries->create("uuid_cache", array(
+										'mcname' => $mcname,
+										'uuid' => $uuid
+									));
+								} catch(Exception $e){
+									die($e->getMessage());
 								}
 							}
-							$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
-							$mcname = $mcname[0]->mcname;
-						
-						} else {
-							$mcname = $mcname[0]->BAT_player;
 						}
+						$mcname = $queries->getWhere('uuid_cache', array('uuid', '=', $infraction["uuid"]));
+						$mcname = $mcname[0]->mcname;
 					} else {
 						$mcname = $queries->getWhere('users', array('uuid', '=', $infraction["uuid"]));
 						$mcname = $mcname[0]->mcname;
