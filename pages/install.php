@@ -163,7 +163,6 @@ if(isset($_GET["step"])){
                 } else {
                         echo 'PHP mysqlnd Extension - ' . $success;
                 }
-
 		if(!function_exists("mcrypt_encrypt")) {
 			echo 'PHP mcrypt Extension - ' . $error;
 			$php_error = true;
@@ -215,7 +214,6 @@ if(isset($_GET["step"])){
 						'required' => true
 					)
 				));
-
 				if($validation->passed()) {
 					$db_password = Input::get('db_password');
 					if(!empty($db_password)){
@@ -268,7 +266,6 @@ if(isset($_GET["step"])){
 							$file = fopen('core/config.php','w');
 							fwrite($file, $insert);
 							fclose($file);
-
 							$queries = new Queries();
 							$queries->dbInitialise($db_prefix); // Initialise the database
 							
@@ -283,7 +280,6 @@ if(isset($_GET["step"])){
 							}
 							
 							$query = $mysqli->query("INSERT nl1_forums SELECT * FROM {$prefix}forums");
-
 							$query = $mysqli->query("INSERT nl1_forums_permissions SELECT * FROM {$prefix}forums_permissions");
 							
 							$query = $mysqli->query("INSERT nl1_friends SELECT * FROM {$prefix}friends");
@@ -628,7 +624,7 @@ if(isset($_GET["step"])){
 							// Version update
 							$version_id = $queries->getWhere('settings', array('name', '=', 'version'));
 							$queries->update('settings', $version_id[0]->id, array(
-								'value' => '1.0.8'
+								'value' => '1.0.9'
 							));
 							
 							
@@ -704,7 +700,6 @@ if(isset($_GET["step"])){
 					'required' => true
 				)
 			));
-
 			if($validation->passed()) {
 				$db_password = "";
 				$db_prefix = "nl1_";
@@ -715,7 +710,6 @@ if(isset($_GET["step"])){
 				if(!empty($db_password)){
 					$db_password = Input::get('db_password');
 				}
-
 				/*
 				 *  Test connection - use MySQLi here, as the config for PDO is not written
 				 */
@@ -997,7 +991,7 @@ if(isset($_GET["step"])){
 					),
 					28 => array(
 						'name' => 'version',
-						'value' => '1.0.8'
+						'value' => '1.0.9'
 					),
 					29 => array(
 						'name' => 'version_checked',
@@ -1071,7 +1065,6 @@ if(isset($_GET["step"])){
 							'value' => $setting["value"]
 						));
 					}
-
 					$queries->create('custom_pages', array(
 						'url' => '/help/',
 						'title' => 'Help',
