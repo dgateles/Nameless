@@ -19,7 +19,7 @@ $infractions_language = array(
 	'temp_ban' => 'Temp Ban',
 	'warning' => 'Advetência',
 	'mute' => 'Mutado',
-	'kick' => 'Kickadp',
+	'kick' => 'Kickado',
 	'created' => 'Criado',
 	'reason' => 'Razão',
 	'expires_x' => 'Expira: {x}', // Don't replace {x}
@@ -30,7 +30,7 @@ $infractions_language = array(
 	'viewing_infraction' => 'Visualizar Infrações',
 	'user' => 'Usuário:',
 	'status' => 'Status:',
-	'no_reason' => 'Nenhuma resão especificada.',
+	'no_reason' => 'Nenhuma razão especificada.',
 	'revoked' => 'Revogado',
 	'revoked_by' => 'Revogado por {x}' // Don't replace {x}
 );
