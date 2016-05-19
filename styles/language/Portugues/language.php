@@ -5,7 +5,6 @@
  *
  *  License: MIT
  */
-
 /*
  *  Linguagem: Português-BR
  *  Por: www.craftalizar.com
@@ -327,7 +326,6 @@ $admin_language = array(
 	'download' => 'Download',
 	'update_warning' => 'Aviso: Certifique-se de que você tenha baixado o pacote e enviado os arquivos contidos em primeiro lugar!'
 );
-
 /*
  *  Navbar
  */
@@ -347,7 +345,6 @@ $navbar_language = array(
 	'forum_icon' => '',
 	'staff_apps_icon' => ''
 );
-
 /*
  * User Related
  */
@@ -444,6 +441,19 @@ $user_language = array(
 	'update_minecraft_name_help' => 'Isto irá atualizar o seu nome de usuário no site para o seu atual nome de usuário Minecraft. Você só pode executar esta ação uma vez a cada 30 dias.',
 	'unable_to_update_mcname' => 'Não foi possível atualizar seu nome de usuário Minecraft',
 	'display_age_on_profile' => 'Exibir idade no perfil?',
+	'two_factor_authentication' => 'Dupla Autenticação',
+	'enable_tfa' => 'Ativar Dupla Autenticação',
+	'tfa_type' => 'Tipo da Autenticação Dupla:',
+	'authenticator_app' => 'App de Autenticação',
+	'tfa_scan_code' => 'Por favor verificar o seguinte código no seu aplicativo de autenticação:',
+	'tfa_code' => 'Se o seu dispositivo não tiver uma câmera, ou você não consegue ler o código QR, por favor insira o seguinte código:',
+	'tfa_enter_code' => 'Por favor entre com o código em exibição com o seu aplicativo de autenticação:',
+	'invalid_tfa' => 'Código inválido, tente novamente.',
+	'tfa_successful' => 'Dupla Autenticação configurada com êxito. Você vai precisar se autenticar toda vez que você entrar a partir de agora em diante.',
+	'confirm_tfa_disable' => 'Você tem certeza que deseja desativar a dupla autenticação?',
+	'tfa_disabled' => 'Dupla autenticação desativada.',
+	'tfa_enter_email_code' => 'Nós enviamos um código com um email para verificação. Por favor digite o código agora:',
+	'tfa_email_contents' => 'Uma tentativa de login foi feita em sua conta. Se foi você, por favor informe a dupla autenticação quando for solicitada. Se não foi você, você pode ignorar este e-mail, no entanto, uma redefinição de senha é aconselhada. O código é válido apenas por 10 minutos.',
 	
 	// Alerts
 	'viewing_unread_alerts' => 'Visualizando alertas não lidos. Alterar para <a href="/user/alerts/?view=read"><span class="label label-success">lido</span></a>.',
@@ -517,7 +527,6 @@ $user_language = array(
 	'application_accepted' => 'Seu pedido para ingressar-se na Staff foi aceito.',
 	'application_rejected' => 'Seu pedido para ingressar-se na Staff foi rejeitado.'
 );
-
 /*
  *  Moderation related
  */
@@ -571,7 +580,6 @@ $mod_language = array(
 	'decline' => 'Rejeitar',
 	'new_app_submitted_alert' => 'Novo pedido enviado por {x}' // Don't replace "{x}"
 );
-
 /* 
  *  General
  */
@@ -596,6 +604,7 @@ $general_language = array(
 	'error' => 'Error',
 	'view' => 'Ver',
 	'info' => 'Info',
+	'next' => 'Próximo',
 	
 	// Play page
 	'connect_with' => 'Junte-se aos nossos jogadores: {x}', // Don't replace {x}
@@ -613,7 +622,6 @@ $general_language = array(
 	'none' => 'Nenhum',
 	'404' => 'Desculpe, nós não encontramos esssa página.'
 );
-
 /* 
  *  Forum
  */
@@ -708,7 +716,6 @@ $forum_language = array(
 	// Search
 	'search_error' => 'Por favor, informe de 1 à 32 caracteres para pesquisar.'
 );
-
 /*
  *  Emails
  */
@@ -718,7 +725,6 @@ $email_language = array(
 	'message' => 'Obrigado por se cadastrar! Para continuar com seu cadastro, clique no link a seguir para validar seus dados:',
 	'thanks' => 'Obrigado,'
 );
-
 /*
  *  Time language, eg "1 minute ago"
  *  DON'T replace "{x}" in any translations
